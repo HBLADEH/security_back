@@ -1,4 +1,4 @@
-package com.pjboy.security_back.util;
+package com.pjboy.security_back.util.result;
 
 
 /**
