@@ -32,13 +32,24 @@ public class JsonResult<T> implements Serializable {
     this.errorMsg = success ? ResultCode.SUCCESS.getMessage() : ResultCode.COMMON_FAIL.getMessage();
   }
 
-
+  /**
+  * @Description: 传入参数有 success 和状态码
+  * @Param: [success, resultEnum]
+  * @Author: BLADE
+  * @Date: 2020/4/22 0022
+  */
   public JsonResult(boolean success, ResultCode resultEnum) {
     this.success = success;
     this.errorCode = success ? ResultCode.SUCCESS.getCode() : (resultEnum == null ? ResultCode.COMMON_FAIL.getCode() : resultEnum.getCode());
     this.errorMsg = success ? ResultCode.SUCCESS.getMessage() : (resultEnum == null ? ResultCode.COMMON_FAIL.getMessage() : resultEnum.getMessage());
   }
 
+  /**
+  * @Description: 传入参数有 success 和数据
+  * @Param: [success, data]
+  * @Author: BLADE
+  * @Date: 2020/4/22 0022
+  */
   public JsonResult(boolean success, T data) {
     this.success = success;
     this.errorCode = success ? ResultCode.SUCCESS.getCode() : ResultCode.COMMON_FAIL.getCode();
@@ -46,6 +57,12 @@ public class JsonResult<T> implements Serializable {
     this.data = data;
   }
 
+  /**
+  * @Description: 传入参数有 success 状态码 数据
+  * @Param: [success, resultEnum, data]
+  * @Author: BLADE
+  * @Date: 2020/4/22 0022
+  */
   public JsonResult(boolean success, ResultCode resultEnum, T data) {
     this.success = success;
     this.errorCode = success ? ResultCode.SUCCESS.getCode() : (resultEnum == null ? ResultCode.COMMON_FAIL.getCode() : resultEnum.getCode());
