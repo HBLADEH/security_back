@@ -18,5 +18,5 @@ public interface SysUserService extends IService<SysUser> {
   * @Author: BLADE
   * @Date: 2020/4/23 0023
   */
-  SysUser selectByAccount(String account);
+  SysUser selectByUserName(String username);
 }

@@ -1,4 +1,4 @@
-package entity;
+package com.pjboy.security_back.entity;
 
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import java.io.Serializable;
@@ -10,7 +10,7 @@ import com.baomidou.mybatisplus.annotation.TableId;
  * 权限表(SysPermission)表实体类
  *
  * @author makejava
- * @since 2020-04-23 18:51:32
+ * @since 2020-04-25 11:19:00
  */
 @Data
 @SuppressWarnings("serial")

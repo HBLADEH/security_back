@@ -21,7 +21,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserDao, SysUser> impleme
   private SysUserDao sysUserDao;
 
   @Override
-  public SysUser selectByAccount(String account) {
-    return this.sysUserDao.selectByAccount(account);
+  public SysUser selectByUserName(String username) {
+    return this.sysUserDao.selectByUserName(username);
   }
 }

@@ -1,8 +1,12 @@
 package com.pjboy.security_back.config.security;
 
+import com.pjboy.security_back.config.security.service.UserDetailsServiceImpl;
+import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 /**
  * @program: security_back
@@ -11,10 +15,29 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
  * @create: 2020-04-22 19:53
  **/
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+
+  //@Bean
+  public UserDetailsService userDetailsService() {
+    // 获取用户账号密码以及权限等信息
+    return new UserDetailsServiceImpl();
+  }
+
+
+  /**
+   * 用户密码加密
+   * @return BCryptPasswordEncoder
+   */
+  @Bean
+  public BCryptPasswordEncoder passwordEncoder() {
+    // 设置默认加密方式 (强hash方式加密)
+    return new BCryptPasswordEncoder();
+  }
+
   @Override
   protected void configure(AuthenticationManagerBuilder auth) throws Exception {
     // 配置认证方式等
-    super.configure(auth);
+    auth.userDetailsService(userDetailsService());
+    //super.configure(auth);
   }
 
   @Override
