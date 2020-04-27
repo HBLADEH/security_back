@@ -16,7 +16,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
  **/
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-  //@Bean
+  @Bean
   public UserDetailsService userDetailsService() {
     // 获取用户账号密码以及权限等信息
     return new UserDetailsServiceImpl();
