@@ -11,7 +11,7 @@ public class ResultTool {
     return new JsonResult(true);
   }
 
-  public static <T> JsonResult<T> sucess(T data) {
+  public static <T> JsonResult<T> success(T data) {
     return new JsonResult<T>(true, data);
   }
 
