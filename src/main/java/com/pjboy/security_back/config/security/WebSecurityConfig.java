@@ -1,5 +1,6 @@
 package com.pjboy.security_back.config.security;
 
+import com.pjboy.security_back.config.security.custom.CustomizeAuthenticationEntryPoint;
 import com.pjboy.security_back.config.security.service.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;

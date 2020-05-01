@@ -1,4 +1,4 @@
-package com.pjboy.security_back.config.security;
+package com.pjboy.security_back.config.security.custom;
 
 import com.alibaba.fastjson.JSON;
 import com.fasterxml.jackson.databind.ObjectMapper;
