@@ -11,8 +11,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.stereotype.Component;
 
-import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -21,10 +21,11 @@ import java.util.Date;
 
 /**
  * @program: security_back
- * @description: 登录成功处理器
+ * @description: 自定义登录成功处理器
  * @author: BLADE
  * @create: 2020-05-01 10:37
  **/
+@Component
 public class CustomizeAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
 
   @Autowired
