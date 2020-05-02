@@ -1,6 +1,9 @@
 package com.pjboy.security_back.config.security;
 
 import com.pjboy.security_back.config.security.custom.CustomizeAuthenticationEntryPoint;
+import com.pjboy.security_back.config.security.custom.CustomizeAuthenticationFailureHandler;
+import com.pjboy.security_back.config.security.custom.CustomizeAuthenticationSuccessHandler;
+import com.pjboy.security_back.config.security.custom.CustomizeLogoutSuccessHandler;
 import com.pjboy.security_back.config.security.service.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -24,6 +27,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
   @Autowired
   CustomizeAuthenticationEntryPoint authenticationEntryPoint;
+
+  @Autowired
+  CustomizeLogoutSuccessHandler logoutSuccessHandler;
+
+  @Autowired
+  CustomizeAuthenticationSuccessHandler authenticationSuccessHandler;
+
+  @Autowired
+  CustomizeAuthenticationFailureHandler authenticationFailureHandler;
+
 
 
   @Bean
@@ -58,12 +71,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 
     http.authorizeRequests().
+            and().logout().
+            permitAll().
+            logoutSuccessHandler(logoutSuccessHandler).
+            deleteCookies("JSESSIONID").
             and().formLogin().
             permitAll().//允许所有用户
+            successHandler(authenticationSuccessHandler).
+            failureHandler(authenticationFailureHandler).
             // 设置权限,只允许拥有 query_user 权限的用户访问 /getUsers URL
             //.antMatchers("/getUsers").hasAuthority("query_user")
-            and().exceptionHandling()
-            .authenticationEntryPoint(authenticationEntryPoint);
+            and().exceptionHandling().
+            authenticationEntryPoint(authenticationEntryPoint);
     super.configure(http);
   }
 }
