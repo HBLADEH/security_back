@@ -1,9 +1,6 @@
 package com.pjboy.security_back.config.security;
 
-import com.pjboy.security_back.config.security.custom.CustomizeAuthenticationEntryPoint;
-import com.pjboy.security_back.config.security.custom.CustomizeAuthenticationFailureHandler;
-import com.pjboy.security_back.config.security.custom.CustomizeAuthenticationSuccessHandler;
-import com.pjboy.security_back.config.security.custom.CustomizeLogoutSuccessHandler;
+import com.pjboy.security_back.config.security.custom.*;
 import com.pjboy.security_back.config.security.service.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -36,6 +33,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
   @Autowired
   CustomizeAuthenticationFailureHandler authenticationFailureHandler;
+
+  @Autowired
+  CustomizeSessionInformationExpiredStrategy sessionInformationExpiredStrategy;
 
 
 
@@ -85,7 +85,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             and().logout().
             permitAll(). //允许所有用户
             logoutSuccessHandler(logoutSuccessHandler). // 登出成功的处理
-            deleteCookies("JSESSIONID"); // 删除 cookie
+            deleteCookies("JSESSIONID"). // 删除 cookie
+            // 限制账号只能一个用户使用
+            and().sessionManagement().
+            maximumSessions(1).
+            expiredSessionStrategy(sessionInformationExpiredStrategy); // 会话过期处理 (或者被挤下线处理)
     super.configure(http);
   }
 }
