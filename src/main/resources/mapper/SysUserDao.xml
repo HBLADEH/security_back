@@ -20,6 +20,6 @@
 
   <!-- 根据账号查询用户 -->
   <select id="selectByUserName" resultMap="SysUserMap">
-    select * from sys_user where username = #{userName};
+    select * from sys_user where account = #{userName};
   </select>
 </mapper>

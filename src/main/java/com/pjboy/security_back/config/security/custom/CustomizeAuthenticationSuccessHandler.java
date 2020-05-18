@@ -37,13 +37,14 @@ public class CustomizeAuthenticationSuccessHandler implements AuthenticationSucc
 
     // mybatis-plus 实体操作类 UpdateWrapper 条件是 username
     UpdateWrapper<SysUser> updateWrapper = new UpdateWrapper<>();
-    updateWrapper.eq("username", userDetails.getUsername());
 
     // 更新用户的登陆时间、更新人、更新时间等字段
-    SysUser sysUser = new SysUser();
+    SysUser sysUser = sysUserService.selectByUserName(userDetails.getUsername());
     sysUser.setLastLoginTime(new Date());
     sysUser.setUpdateUser(sysUser.getId());
     sysUser.setUpdateTime(new Date());
+    updateWrapper.eq("id",sysUser.getId());
+
     sysUserService.update(sysUser, updateWrapper);
 
     // 这里还可以再给予前台一些东西, 返回给前台该用户有哪些菜单权限

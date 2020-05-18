@@ -13,9 +13,9 @@
     FROM
     sys_user AS u
     LEFT JOIN sys_user_role_relation AS ur
-    ON u.i = ur.user_id
+    ON u.id = ur.user_id
     LEFT JOIN sys_role AS r
-    ON r.id = ur.role.id
+    ON r.id = ur.role_id
     LEFT JOIN sys_role_permission_relation AS rp
     ON r.id = rp.role_id
     LEFT JOIN sys_permission AS p
