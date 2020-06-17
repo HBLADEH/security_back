@@ -7,7 +7,6 @@ import com.pjboy.security_back.util.result.ResultTool;
 import org.springframework.security.web.session.SessionInformationExpiredEvent;
 import org.springframework.security.web.session.SessionInformationExpiredStrategy;
 import org.springframework.stereotype.Component;
-import sun.security.provider.certpath.OCSPResponse;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletResponse;

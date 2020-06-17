@@ -25,4 +25,9 @@ public class SysPermissionServiceImpl extends ServiceImpl<SysPermissionDao, SysP
   public List<SysPermission> selectListByUser(Integer userId) {
     return this.sysPermissionDao.selectListByUser(userId);
   }
+
+  @Override
+  public List<SysPermission> selectListByPath(String path) {
+return this.sysPermissionDao.selectListByPath(path);
+  }
 }

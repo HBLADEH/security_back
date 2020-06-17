@@ -13,4 +13,5 @@ import java.util.List;
  */
 public interface SysPermissionDao extends BaseMapper<SysPermission> {
   List<SysPermission> selectListByUser(Integer userId);
+  List<SysPermission> selectListByPath(String path);
 }

@@ -12,5 +12,22 @@ import java.util.List;
  * @since 2020-04-25 11:19:00
  */
 public interface SysPermissionService extends IService<SysPermission> {
+  
+  /**
+  * @Description: 查询用户的权限列表
+  * @Param: [userId]
+  * @return: java.util.List<com.pjboy.security_back.entity.SysPermission>
+  * @Author: BLADE
+  * @Date: 2020/6/17
+  */
   List<SysPermission> selectListByUser(Integer userId);
+  
+  /**
+  * @Description: 查询具体的某个接口对应权限
+  * @Param: [path]
+  * @return: java.util.List<com.pjboy.security_back.entity.SysPermission>
+  * @Author: BLADE
+  * @Date: 2020/6/17
+  */
+  List<SysPermission>selectListByPath(String path);
 }

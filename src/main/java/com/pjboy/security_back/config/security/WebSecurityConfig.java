@@ -5,12 +5,14 @@ import com.pjboy.security_back.config.security.service.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.ObjectPostProcessor;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
 
 /**
  * @program: security_back
@@ -38,6 +40,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
   CustomizeSessionInformationExpiredStrategy sessionInformationExpiredStrategy;
 
 
+  @Autowired
+  CustomizeAccessDecisionManager accessDecisionManager;
+
+  //实现权限拦截
+  @Autowired
+  CustomizeFilterInvocationSecurityMetadataSource securityMetadataSource;
+
+  @Autowired
+  private CustomizeAbstractSecurityInterceptor securityInterceptor;
 
   @Bean
   public UserDetailsService userDetailsService() {
@@ -71,6 +82,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 
     http.authorizeRequests().
+            withObjectPostProcessor(new ObjectPostProcessor<FilterSecurityInterceptor>() {
+              @Override
+              public <O extends FilterSecurityInterceptor> O postProcess(O o) {
+               o.setAccessDecisionManager(accessDecisionManager); // 决策管理器
+               o.setSecurityMetadataSource(securityMetadataSource); //安全元处理数据源
+               return o;
+              }
+            }).
             // 设置权限,只允许拥有 query_user 权限的用户访问 /getUsers URL
             //antMatchers("/getUser").hasAuthority("query_user").
             // 异常处理 (权限拒绝或者登录失败等等)
@@ -90,6 +109,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             and().sessionManagement().
             maximumSessions(1).
             expiredSessionStrategy(sessionInformationExpiredStrategy); // 会话过期处理 (或者被挤下线处理)
-    super.configure(http);
+    http.addFilterBefore(securityInterceptor,FilterSecurityInterceptor.class);
   }
 }
