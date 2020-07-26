@@ -28,18 +28,25 @@ public class UserDetailsServiceImpl implements UserDetailsService {
   @Autowired
   private SysPermissionService sysPermissionService;
 
+  /**
+   * @Description: 登录检测
+   * @Param: [username]
+   * @return: org.springframework.security.core.userdetails.UserDetails
+   * @Author: BLADE
+   * @Date: 2020/7/26
+   */
   @Override
   public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
     // 需要构造出 org.springframework.security.core.userDetails.User 对象并返回
     if (username == null || "".equals(username)) {
       throw new RuntimeException("用户名不能为空");
     }
-
     // 首先根据用户名查询用户
     SysUser sysUser = sysUserService.selectByUserName(username);
     if (sysUser == null) {
       throw new RuntimeException("该用户不存在");
     }
+
 
     List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
 
@@ -52,6 +59,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     });
 
     // 返回一个 User 对象
-    return new User(sysUser.getAccount(), sysUser.getPassword(),sysUser.getEnabled(),sysUser.getNotExpired(),sysUser.getCredentialsNotExpired(),sysUser.getAccountNotLocked(),grantedAuthorities);
+    return new User(sysUser.getAccount(), sysUser.getPassword(), sysUser.getEnabled(), sysUser.getNotExpired(), sysUser.getCredentialsNotExpired(), sysUser.getAccountNotLocked(), grantedAuthorities);
   }
 }

@@ -24,36 +24,43 @@ import org.springframework.security.web.access.intercept.FilterSecurityIntercept
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
+  // 自定义屏蔽未授权用户登录
   @Autowired
   CustomizeAuthenticationEntryPoint authenticationEntryPoint;
 
+  // 自定义登出成功处理
   @Autowired
   CustomizeLogoutSuccessHandler logoutSuccessHandler;
 
+  // 自定义登录成功处理器
   @Autowired
   CustomizeAuthenticationSuccessHandler authenticationSuccessHandler;
 
+  // 自定义登录失败处理
   @Autowired
   CustomizeAuthenticationFailureHandler authenticationFailureHandler;
 
+  // 自定义处理会话过期或者账号被挤下线
   @Autowired
   CustomizeSessionInformationExpiredStrategy sessionInformationExpiredStrategy;
 
-
+  // 访问决策管理器
   @Autowired
   CustomizeAccessDecisionManager accessDecisionManager;
 
-  //实现权限拦截
+  // 实现权限拦截
   @Autowired
   CustomizeFilterInvocationSecurityMetadataSource securityMetadataSource;
 
+  // 自定义权限拦截器
   @Autowired
   private CustomizeAbstractSecurityInterceptor securityInterceptor;
 
+  
   @Bean
   public UserDetailsService userDetailsService() {
     // 获取用户账号密码以及权限等信息
-    return new UserDetailsServiceImpl();
+    return new UserDetailsServiceImpl(); // 返回自定义用户登录
   }
 
 
@@ -70,17 +77,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
   @Override
   protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-    // 配置认证方式等
+    // 配置自定义认证方式等
     auth.userDetailsService(userDetailsService());
     //super.configure(auth);
   }
-
+  
   @Override
   protected void configure(HttpSecurity http) throws Exception {
     // http 相关的配置, 包括登入登出、异常处理、会话管理等
     http.cors().and().csrf().disable();
-
-
     http.authorizeRequests().
             withObjectPostProcessor(new ObjectPostProcessor<FilterSecurityInterceptor>() {
               @Override

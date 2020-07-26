@@ -21,9 +21,18 @@ import java.io.IOException;
 @Service
 public class CustomizeAbstractSecurityInterceptor extends AbstractSecurityInterceptor implements Filter {
 
+  // 安全元数据源
   @Autowired
   private FilterInvocationSecurityMetadataSource securityMetadataSource;
 
+
+  /**
+  * @Description: 设置访问决策管理器 (用自定义的决策管理器替换)
+  * @Param: [accessDecisionManager]
+  * @return: void
+  * @Author: BLADE
+  * @Date: 2020/7/26
+  */
   @Autowired
   public void setMyAccessDecisionManager(CustomizeAccessDecisionManager accessDecisionManager) {
     super.setAccessDecisionManager(accessDecisionManager);
@@ -38,7 +47,14 @@ public class CustomizeAbstractSecurityInterceptor extends AbstractSecurityInterc
   public SecurityMetadataSource obtainSecurityMetadataSource() {
     return this.securityMetadataSource;
   }
-
+  
+  /**
+  * @Description: 执行过滤
+  * @Param: [servletRequest, servletResponse, filterChain]
+  * @return: void
+  * @Author: BLADE
+  * @Date: 2020/7/26
+  */
   @Override
   public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
     FilterInvocation fi = new FilterInvocation(servletRequest, servletResponse, filterChain);

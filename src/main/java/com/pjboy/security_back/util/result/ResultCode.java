@@ -1,11 +1,23 @@
 package com.pjboy.security_back.util.result;
 
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
+
 /**
- * @Description: 定义返回码
+ * @Description: 自定义返回值
  * @Author: BLADE
+ * 规定:
+ * # 200 表示成功
+ * # 1001~1999 区间表示参数错误
+ * # 2001~2999 区间表示用户错误
+ * # 3001~3999 区间表示接口异常
  * @Date: 2020/4/22 0022
  */
+@Getter
+@AllArgsConstructor
+//@Setter
 public enum ResultCode {
   /* 成功 */
   SUCCESS(200, "成功"),
@@ -32,25 +44,15 @@ public enum ResultCode {
 
   /* 业务错误 */
   NO_PERMISSION(3001, "没有权限");
-
   private Integer code;
   private String message;
 
-  ResultCode(Integer code, String message) {
-    this.code = code;
-    this.message = message;
-  }
-
-  public Integer getCode() {
-    return code;
-  }
-
+  //ResultCode(Integer code, String message) {
+  //  this.code = code;
+  //  this.message = message;
+  //}
   public void setCode(Integer code) {
     this.code = code;
-  }
-
-  public String getMessage() {
-    return message;
   }
 
   public void setMessage(String message) {

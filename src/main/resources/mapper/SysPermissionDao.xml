@@ -29,7 +29,7 @@
     FROM
         sys_permission sp
     LEFT JOIN sys_request_path_permission_relation re ON re.permission_id = sp.id
-    LEFT JOIN sys_request_path sra ON pa.id =re.url_id
+    LEFT JOIN sys_request_path sra ON sra.id =re.url_id
     WHERE sra.url =#{path}
 
   </select>
