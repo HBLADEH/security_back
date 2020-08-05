@@ -18,4 +18,6 @@ public interface SysUserDao extends BaseMapper<SysUser> {
    * @Date: 2020/4/23 0023
    */
   SysUser selectByUserName(String username);
+
+
 }

@@ -102,6 +102,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             authenticationEntryPoint(authenticationEntryPoint). // 匿名用户访问无权限资源时的自定义异常处理
             // 登录
             and().formLogin().// 放行登录接口
+            //loginPage("/user/login"). // 登录 api 接口
             permitAll(). //允许所有用户
             successHandler(authenticationSuccessHandler). // 登录成功的处理
             failureHandler(authenticationFailureHandler). // 登录失败的处理
