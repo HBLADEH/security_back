@@ -53,7 +53,7 @@ public class UserController {
     Authentication authentication = securityContext.getAuthentication();
     // 获取用户详情
     Object principal = authentication.getPrincipal();
-    return ResultTool.success();
+    return ResultTool.success(principal);
   }
 
 }
